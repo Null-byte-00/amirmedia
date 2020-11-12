@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% block title %}edit profile{% endblock %}
+{% block body %}
+{% load widget_tweaks %}
+<div class="card" style="width: 50%; margin: 100px 300px 300px;">
+    <div class="card-body">
+    <h1>Edit profile:</h1><br>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>profile picture:</label><br>
+            {{ form.profilepic }}<br>
+            <label>Bio:</label>
+            {% render_field form.bio class="form-control" placeholder="Bio" %}
+            <label>Location:</label>
+            {% render_field form.location class="form-control" placeholder="Location" %}
+            <label>Gender:</label>
+            {% render_field form.gender class="form-control" placeholder="Gender" %}
+            <label>Age:</label>
+            {% render_field form.age class="form-control" placeholder="Age" %}<br>
+            <input type="submit" value="Edit" class="btn btn-primary">
+            {% csrf_token %}
+        </form>
+    </form>
+    </div>
+</div>
+{% endblock %}

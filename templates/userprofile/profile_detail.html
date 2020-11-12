@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% block title %}profile-{{ profile.user.username }}{% endblock %}
+{% block body %}
+<style>
+    .profile_img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 5px solid black;
+    }
+    .left-side {
+        float: right;
+        width: 700px;
+    }
+    .right-side {
+        float: left;
+    }
+    .profile-post {
+        border: 2px solid lightgray;
+        border-radius: 20px;
+        margin: 20px 20px 20px;
+    }
+</style>
+<div class="card" style="width: 95%; border-radius: 30px; margin: 30px 30px 30px;">
+    <div class="card-body">
+    <div class="right-side">
+    <h1>{{ profile.user.username }}:</h1><br>
+    {% if profile.profilepic %}
+        <img class="profile_img" src="{{ profile.profilepic.url }}"><br>
+    {% endif %}
+    <br><h4>email: {{ profile.email }}</h4>
+    <h4>age: {{ profile.age }} </h4>
+    <h4>gender: {{ profile.gender }}</h4>
+    <h4>bio: {{ profile.bio }}</h4>
+    <h4>location: {{ profile.location }}</h4><br>
+    {% if is_this_user %}
+        <a  href="edit/"><button class="btn btn-primary">edit profile</button></a>
+    {% endif %}
+    </div>
+    <div class="left-side">
+    recent posts:<br>
+    {% for post in latest_posts %}
+        <div class="profile-post">
+            <div class="card-body">
+            <h2>{{ post.title }}</h2>
+            {{ post.text }}
+            <h5>{{ post.date_published | date }}</h5>
+            <a href="{% url 'userpost:post' username=post.user.profile.slug id=post.pk post=post.slug %}">more ...</a>
+            </div>
+    </div>
+    {% empty %}
+        no posts yet<br>
+    {% endfor %}
+    {% if latest_posts %}
+    <a href="{% url 'userpost:user_posts' username=profile.slug %}">more posts ...</a><br><br>
+    {% endif %}
+    {% if is_this_user %}
+    <a href="/posts/add/"><button class="btn btn-primary">Add post</button></a>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    {% endblock %}

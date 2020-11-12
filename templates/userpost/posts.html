@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% block title %}Posts{% endblock %}
+{% block body %}
+    <style>
+    .user-profile-pic {
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+        border-radius: 50%;
+    }
+    </style>
+    {% for post in posts %}
+    <div class="card" style="width: 95%; margin: 30px 30px  30px">
+    <div class="card-body">
+        {% if post.user.profile.profilepic %}
+        <img class="user-profile-pic" src="{{ post.user.profile.profilepic.url }}"><span style="margin: 10px 10px 10px;">{{ post.user.username }}</span> 
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+        {{ post.text | truncatechars:30}}<br>
+        {% for tag in post.tags.all %}
+            <a href="{% url 'userpost:tag' tag=tag.slug %}" class="mr-1 badge badge-info">{{ tag }}</a>
+        {% endfor %}<br>
+        {{ post.date_published | date }}<br>
+        <a href="{% url 'userpost:post'  username=post.user.profile.slug id=post.pk post=post.slug  %}">more</a>
+    </div>
+    </div>
+    {% empty %}
+        no posts yet
+    {% endfor %}
+
+{% endblock %}

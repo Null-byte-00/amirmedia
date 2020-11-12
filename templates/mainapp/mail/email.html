@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>validate your email</title>
+    </head>
+    <body>
+        <h1>Hi {{ user.username }}!</h1>
+        <p>click on the link below to activate your amirmedia account</p>
+        {{ domain }}/{% url 'mainapp:activate' uidb64=uidb64 token=token %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </body>
+</html>

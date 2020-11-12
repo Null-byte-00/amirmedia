@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% block title %}Sign up{% endblock %}
+{% block body %}
+    {% load widget_tweaks %}
+    <div class="card" style="width: 50%; border-radius: 30px; margin: 100px 300px 300px;">
+    <div class="card-body">
+        <h1>Sign up</h1><br>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+            <label>Choose a username:</label>
+            {% render_field form.username class="form-control" placeholder="Username" %}<br>
+            <label>Upload a profile picture (optional):</label>
+            {% render_field form.profilepic %}<br>
+            <label>Your Email Address:</label>
+            {% render_field form.email class="form-control" placeholder="Your Email address" %}<br>
+            <label>Select your gender:</label>
+            {% render_field form.gender class="form-control" placeholder="Gender" %}<br>
+            <label>Age:</label>
+            {% render_field form.age class="form-control" placeholder="Age" %}<br>
+            <label>Biography(optional):</label>
+            {% render_field form.bio class="form-control" placeholder="Bio" %}<br>
+            <label>Location(optional):</label>
+            {% render_field form.location class="form-control" placeholder="Location" %}<br>
+            <label>Password:</label>
+            {% render_field form.password1 class="form-control" placeholder="Password" %}<br>
+            <ul>
+                <li><small>Your password can’t be too similar to your other personal information.</small></li>
+                <li><small>Your password must contain at least 8 characters.</small></li>
+                <li><small>Your password can’t be a commonly used password.</small></li>
+                <li><small>Your password can’t be entirely numeric.</small></li>
+            </ul>
+            <label>Confirm your password:</label>
+            {% render_field form.password2 class="form-control" placeholder="confirm password" %}<br>
+            <input type="submit" value="Sign up" class="btn btn-primary">
+            {% csrf_token %}
+            </div>
+        </form>
+    </div>
+    </div>
+{% endblock %}

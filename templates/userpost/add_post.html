@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% block title %}add post{% endblock %}
+    {% block body %}
+    {% load widget_tweaks %}
+    <div class="card" style="width: 50%;margin: 100px 300px 300px;">
+        <div class="card-body">
+            <h1>Add a post</h1><br>
+            <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+            {% csrf_token %}
+            <label>your posts's title:</label>
+            {% render_field form.title class="form-control" %}<br>
+            <label>choose an image (optional):</label>
+            {% render_field form.picture %}<br>
+            <label>your posts's description:</label>
+            {% render_field form.text id="post_text" class="form-control"%}<br>
+            <label>tags (seprated with ','):</label>
+            {% render_field form.tags id="tags" class="form-control"%}
+            <label>comman tags:</label>
+            {% for ct in common_tags %}
+                <span onclick="Addtag()" style="cursor: pointer;"  class="badge badge-success">{{ct}}</span>
+            {% endfor %}<br><br>
+            <input type="submit" value="share" class="btn btn-primary">
+            </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function Addtag() {
+            document.getElementById('tags').value += (event.srcElement.innerHTML + ',')
+        }
+    </script>
+    {% endblock %}
